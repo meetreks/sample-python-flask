@@ -1,22 +1,16 @@
-#!flask/bin/python
-from flask import Flask
-from flaskrun import flaskrun
-from flask import render_template
+from flask import Flask, jsonify, request
+app = Flask(__name__)
 
-application = Flask(__name__)
-
-
-@application.route('/', methods=['GET'])
-@application.route('/hello/')
-@application.route('/hello/<name>')
-def hello(name=None):
-    # return '{"Output":"Hello World"}'
-    return render_template('hello.html', name=name)
-
-
-@application.route('/', methods=['POST'])
-def post():
-    return '{"Output":"Hello World"}'
-
+@app.route('/', methods=['GET','POST'])
+def hello_world():
+    if(request.method == 'POST'):
+        sj = request.get_json()
+        return jsonify({'you send': sj}), 201
+    else:
+        return  jsonify({'about':'Hello World'})
+@app.route('/sairam/<int:num>', methods=['GET'])
+def somefunc(num):
+    result = num * 9
+    return jsonify({'result':result})
 if __name__ == '__main__':
-    flaskrun(application)
+    app.run(host='0.0.0.0', port=80)

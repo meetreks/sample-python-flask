@@ -1,8 +1,3 @@
 #!/bin/bash
-easy_install pip
-pip install virtualenv
-cd /home/ec2-user/python-flask-service
-virtualenv environment
-source environment/bin/activate
+sudo yum -y install python-pip
 pip install -r requirements.txt
-pip install supervisor
